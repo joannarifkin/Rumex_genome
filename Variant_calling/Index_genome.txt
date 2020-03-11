@@ -1,0 +1,1 @@
+nohup STAR --runMode genomeGenerate --genomeDir /ohta/joanna.rifkin/Genomes/Hi-C/ --limitGenomeGenerateRAM=58598808277 --genomeFastaFiles /ohta/joanna.rifkin/Genomes/Hi-C/hastate_28Sep2018_nbKXS.fasta --runThreadN 20 &
