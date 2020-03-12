@@ -1,0 +1,37 @@
+/ohta/joanna.rifkin/Chromonomer_analyses/Rumex/TX_final/TX_chromonomer_markers_final.txt
+
+/ohta/joanna.rifkin/Chromonomer_analyses/Rumex/TX_final/TX_chromonomer_input_map_final.txt
+
+#Extract markers from genome as .fasta
+python3 Fixed_Marker_fasta_generator.py
+#python3 Marker_fasta_generator.py
+/ohta/joanna.rifkin/Chromonomer_analyses/Rumex/TX_final/TX_chromonomer_markers_final.txt #marker file
+/ohta/joanna.rifkin/Genomes/Hi-C/DEGAPPEDhastate_28Sep2018_nbKXS.fasta #genome file
+/ohta/joanna.rifkin/Chromonomer_analyses/Rumex/TX_final/TX_chromonomer_markers_final.fasta #output file
+
+#Align markers to genome to generate bam file
+#nohup ngm -r /ohta/joanna.rifkin/Genomes/Hi-C/no_eq_no_sc_DEGAPPEDhastate_28Sep2018_nbKXS.fasta -t 10 -b -q /ohta/joanna.rifkin/Chromonomer_analyses/Rumex/TX_final/TX_chromonomer_markers_final.fasta -o /ohta/joanna.rifkin/Chromonomer_analyses/Rumex/TX_final/TX_chromonomer_markers_final.bam > align_markers_TXfinal.out 2> align_markers_TXfinal.err &
+nohup ngm -r /ohta/joanna.rifkin/Genomes/Hi-C/no_eq_no_sc_DEGAPPEDhastate_28Sep2018_nbKXS.fasta -t 10 -b -q /ohta/joanna.rifkin/Chromonomer_analyses/Rumex/TX_final/TX_chromonomer_markers_final.fasta -o /ohta/joanna.rifkin/Chromonomer_analyses/Rumex/TX_final/TX_chromonomer_markers_final_fixed.bam > align_markers_TXfinal_fixed.out 2> align_markers_TXfinal_fixed.err &
+
+#Run chromonomer
+#chromonomer -p /ohta/joanna.rifkin/Chromonomer_analyses/Rumex/TX_final/TX_chromonomer_input_map_final.txt \
+    -o /ohta/joanna.rifkin/Chromonomer_analyses/Rumex/TX_final/Final_Chromonomer_run/ -s /ohta/joanna.rifkin/Chromonomer_analyses/Rumex/TX_final/TX_chromonomer_markers_final.bam \
+    -a /ohta/joanna.rifkin/Chromonomer_analyses/Rumex/formatted_hastate_28Sep2018_nbKXS.table.agp --data_version 20191023 &
+
+
+
+#Run chromonomer
+chromonomer -p /ohta/joanna.rifkin/Chromonomer_analyses/Rumex/TX_final/TX_chromonomer_sorted_input_map_final.txt \
+    -o /ohta/joanna.rifkin/Chromonomer_analyses/Rumex/TX_final/Final_chromonomer_run_sorted/ -s /ohta/joanna.rifkin/Chromonomer_analyses/Rumex/TX_final/TX_chromonomer_markers_final.bam \
+    -a /ohta/joanna.rifkin/Chromonomer_analyses/Rumex/formatted_hastate_28Sep2018_nbKXS.table.agp --data_version 20191028 &
+
+
+chromonomer -p /ohta/joanna.rifkin/Chromonomer_analyses/Rumex/TX_final/TX_chromonomer_sorted_input_map_final.txt \
+    -o /ohta/joanna.rifkin/Chromonomer_analyses/Rumex/TX_final/Final_chromonomer_run_sorted_positions_fixed/ -s /ohta/joanna.rifkin/Chromonomer_analyses/Rumex/TX_final/TX_chromonomer_markers_final_fixed.bam \
+    -a /ohta/joanna.rifkin/Chromonomer_analyses/Rumex/formatted_hastate_28Sep2018_nbKXS.table.agp --data_version 20191029 &
+
+chromonomer -p /ohta/joanna.rifkin/Chromonomer_analyses/Rumex/TX_final/TX_chromonomer_sorted_input_map_final.txt \
+    -o /ohta/joanna.rifkin/Chromonomer_analyses/Rumex/TX_final/Final_chromonomer_run_sorted_positions_fixed/Final_chromonomer_run_sorted_positions_fixed_with_fasta -s /ohta/joanna.rifkin/Chromonomer_analyses/Rumex/TX_final/TX_chromonomer_markers_final_fixed.bam  --fasta /ohta/joanna.rifkin/Genomes/Hi-C/no_eq_no_sc_DEGAPPEDhastate_28Sep2018_nbKXS.fasta\
+    -a /ohta/joanna.rifkin/Chromonomer_analyses/Rumex/formatted_hastate_28Sep2018_nbKXS.table.agp --data_version 20191122 &
+
+ 
