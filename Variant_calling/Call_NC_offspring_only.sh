@@ -1,0 +1,1 @@
+/ohta/joanna.rifkin/bcftools/bcftools mpileup -a AD,DP -Ou -f /ohta/joanna.rifkin/Genomes/Hi-C/hastate_28Sep2018_nbKXS.fasta /ohta/joanna.rifkin/Alignments/STAR/ComparativeTranscriptomeMap/NC/Picard/AnalysisReady_*.bam  | /ohta/joanna.rifkin/bcftools/bcftools call -vmO z -f gq | /ohta/joanna.rifkin/bcftools/bcftools view -O z -o NC_map_offspring_only.vcf.gz
