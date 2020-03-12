@@ -1,0 +1,1 @@
+/ohta/joanna.rifkin/bcftools/bcftools mpileup -d 3000 -a AD -Ou -f /ohta/joanna.rifkin/Genomes/Hi-C/hastate_28Sep2018_nbKXS.fasta /ohta/joanna.rifkin/Alignments/STAR/JoshHastatulusPop/Aligned_To_HiC_Assembly/Picard/AnalysisReady_*.bam | /ohta/joanna.rifkin/bcftools/bcftools call -vmO z -f gq -o /ohta/joanna.rifkin/HiCSNPData/JoshPop/raw_pop_11-16-18.vcf.gz
