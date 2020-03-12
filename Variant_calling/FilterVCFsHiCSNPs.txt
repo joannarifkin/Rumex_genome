@@ -1,0 +1,27 @@
+vcftools --raw_snps_11-9-18.vcf.gz --minQ 20 --minGQ 20 --max-missing-count 0 --maf 0.04 --recode &
+Filtered_Q20_GQ20_All_NoInv.vcf
+
+
+vcftools --gzvcf raw_snps_11-9-18.vcf.gz --remove-indv sample1_Index-4.TXF1_F4_ --recode 
+vcftools --vcf out.recode.vcf --minQ 20 --minGQ 20 --max-missing-count 0 --maf 0.04 --recode --out Filtered_Q20_GQ20_NoTXF1F4_NoInv &
+
+vcftools --gzvcf raw_snps_11-9-18.vcf.gz --minQ 20 --minGQ 20 --max-missing-count 0 --maf 0.04 --recode &
+mv out.recode.vcf FelixPopFiltered_Q20_GQ20_All_NoInv.vcf &
+
+nohup vcftools --gzvcf raw_snps_11-9-18.vcf.gz --minQ 20 --minGQ 20 --max-missing-count 0 --maf 0.04 --recode &
+mv out.recode.vcf JoshCrossFiltered_Q20_GQ20_All_NoInv.vcf &
+
+
+
+nohup vcftools --gzvcf NC_map_offspring_only.vcf.gz --minQ 20 --minGQ 20 --max-missing-count 14 --maf 0.009 --recode --out Filtered_Q20_GQ20_max14missing_min1indcalled > filterNCF2.out &
+
+
+nohup vcftools --gzvcf NC_map_offspring_only.vcf.gz --minQ 20 --minGQ 20 --max-missing-count 6 --maf 0.024 --recode --keep NCF2Males.txt --out Filtered_Q20_GQ20_malesOnly_max6missing_min1indcalled > filterNCF2.out &
+
+
+nohup vcftools --gzvcf TX_map_offspring_only.vcf.gz --minQ 20 --minGQ 20 --max-missing-count 14 --maf 0.009 --recode --out TXFiltered_Q20_GQ20_max14missing_min1indcalled > filterTXF2.out &
+
+
+nohup vcftools --gzvcf TX_map_offspring_only.vcf.gz --minQ 20 --minGQ 20 --max-missing-count 8 --maf 0.01 --recode --keep TXF2Males.txt --out TXFiltered_Q20_GQ20_malesOnly_max6missing_min1indcalled > filterTXF2Males.out &
+
+

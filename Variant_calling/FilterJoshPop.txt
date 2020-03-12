@@ -1,0 +1,8 @@
+#1-17-2019	
+	
+	vcftools --vcf myfile.vcf --out output_prefix --minGQ 15 --minDP 10 --recode --recode-INFO-all
+
+	nohup vcftools --gzvcf /ohta/joanna.rifkin/HiCSNPData/JoshPop/raw_pop_11-8-18.vcf.gz --out /ohta/joanna.rifkin/HiCSNPData/JoshPop/VCFToolsJosh_Pop_Filtered_GQ20_Q20_1-17-2019 --minGQ 20 --recode --recode-INFO-all & #Set low-quality genotypes to missing
+	 
+	 nohup /ohta/joanna.rifkin/bcftools/bcftools filter -Oz -i  "QUAL>20 & F_MISSING < 0.5 & MAF>0" /ohta/joanna.rifkin/HiCSNPData/JoshPop/VCFToolsJosh_Pop_Filtered_GQ20_Q20_1-17-2019.recode.vcf > Josh_Pop_Filtered_GQ20_Q20_0.5Called_Variant_1-17-2019.vcf.gz 2> /ohta/joanna.rifkin/HiCSNPData/JoshPop/BCFTools_filter_1-17-19.err &
+

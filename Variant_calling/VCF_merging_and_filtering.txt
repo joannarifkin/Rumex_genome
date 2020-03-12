@@ -1,0 +1,94 @@
+vcf-merge A.vcf.gz B.vcf.gz C.vcf.gz | bgzip -c > out.vcf.gz
+
+   -d, --remove-duplicates                         If there should be two consecutive rows with the same chr:pos, print only the first one.
+
+   
+ vcf-isec -o A.vcf.gz B.vcf.gz C.vcf.gz | bgzip -c > out.vcf.gz 
+ 
+ 
+ /ohta/joanna.rifkin/HiCSNPData/TranscriptomeCross/ParentCalls.vcf.gz
+ 
+ 
+  nohup vcf-isec -o /ohta/joanna.rifkin/HiCSNPData/TranscriptomeCross/TX/TX_map_offspring_only.vcf.gz  /ohta/joanna.rifkin/HiCSNPData/TranscriptomeCross/ParentCalls.vcf.gz | bgzip -c > TX_plus_parent_genotypes_1-15-2019.vcf.gz 2> VCFIsec_1-15-19.err &
+ 
+ 
+ 
+ nohup /ohta/joanna.rifkin/bcftools/bcftools merge -Oz /ohta/joanna.rifkin/HiCSNPData/TranscriptomeCross/TX/TX_map_offspring_only.vcf.gz  /ohta/joanna.rifkin/HiCSNPData/TranscriptomeCross/ParentCalls.vcf.gz  > TX_plus_parent_genotypes_raw_1-15-2019.vcf.gz 2> BCFTools_merge_1-15-19.err &
+ 
+ 
+  
+ 
+ #1-15-2019
+ nohup /ohta/joanna.rifkin/bcftools/bcftools merge -Oz /ohta/joanna.rifkin/HiCSNPData/TranscriptomeCross/TX/TX_map_offspring_only.vcf.gz  /ohta/joanna.rifkin/HiCSNPData/TranscriptomeCross/ParentCalls.vcf.gz  |  /ohta/joanna.rifkin/bcftools/bcftools view -m  TX_plus_parent_genotypes_1-15-2019.vcf.gz 2> BCFTools_merge_1-15-19.err &
+
+ nohup /ohta/joanna.rifkin/bcftools/bcftools merge -Oz /ohta/joanna.rifkin/HiCSNPData/TranscriptomeCross/TX/TX_map_offspring_only.vcf.gz  /ohta/joanna.rifkin/HiCSNPData/TranscriptomeCross/ParentCalls.vcf.gz  |  /ohta/joanna.rifkin/bcftools/bcftools filter -e  "F_MISSING > 0.2" > TX_plus_parent_genotypes_1-15-2019.vcf.gz 2> BCFTools_merge_1-15-19.err &
+
+ nohup /ohta/joanna.rifkin/bcftools/bcftools merge -Oz /ohta/joanna.rifkin/HiCSNPData/TranscriptomeCross/TX/TX_map_offspring_only.vcf.gz  /ohta/joanna.rifkin/HiCSNPData/TranscriptomeCross/ParentCalls.vcf.gz  > TX_plus_parent_genotypes_1-15-2019_all_raw.vcf.gz 2> BCFTools_merge_1-15-19_all_raw.err &
+
+
+ 
+ bcftools filter -e "FMT/GQ < 20 || F_MISSING < 0.01 || MAF > 0.98"
+ 
+ TX_plus_parent_genotypes_1-15-2019.vcf.gz 2> BCFTools_merge_1-15-19.err &
+ 
+ 
+ #1-16-2019
+ 
+ nohup /ohta/joanna.rifkin/bcftools/bcftools view -Oz -s ^sampleScScP5f,sampleScScP1m TX_plus_parent_genotypes_1-15-2019.vcf.gz > Max0.2MissingTX_plus_parent_genotypes_1-15-2019.vcf.gz &
+
+ 
+  nohup /ohta/joanna.rifkin/bcftools/bcftools view -Oz -s ^sampleScScP5f,sampleScScP1m TX_plus_parent_genotypes_1-15-2019_all_raw.vcf.gz > Correct_TX_plus_parent_genotypes_1-15-2019_all_raw.vcf.gz &
+
+  
+ /ohta/joanna.rifkin/bcftools/bcftools filter -e  "F_MISSING > 0.2" > TX_plus_parent_genotypes_1-15-2019.vcf.gz 2> BCFTools_merge_1-15-19.err &
+
+ nohup /ohta/joanna.rifkin/bcftools/bcftools filter -Oz -i  "QUAL>20 |  FMT/GQ>20" Max0.2MissingTX_plus_parent_genotypes_1-15-2019.vcf.gz > Filtered_GQ20_Max0.2MissingTX_plus_parent_genotypes_1-15-2019.vcf.gz 2> BCFTools_filter_1-16-19.err &
+
+  nohup /ohta/joanna.rifkin/bcftools/bcftools filter -Oz -e  "MAF[0]<0.05" Filtered_GQ20_Max0.2MissingTX_plus_parent_genotypes_1-15-2019.vcf.gz > AF_Filtered_GQ20_Max0.2MissingTX_plus_parent_genotypes_1-15-2019.vcf.gz 2> BCFTools_filter_1-16-19.err &
+
+ #Merge NC genotypes
+  nohup /ohta/joanna.rifkin/bcftools/bcftools merge -Oz /ohta/joanna.rifkin/HiCSNPData/TranscriptomeCross/NC/NC_map_offspring_only.vcf.gz  /ohta/joanna.rifkin/HiCSNPData/TranscriptomeCross/ParentCalls.vcf.gz  > /ohta/joanna.rifkin/HiCSNPData/TranscriptomeCross/NC/NC_plus_parent_genotypes_1-16-2019_all_raw.vcf.gz 2> /ohta/joanna.rifkin/HiCSNPData/TranscriptomeCross/NC/BCFTools_merge_1-16-19_all_raw.err &
+
+  
+    nohup /ohta/joanna.rifkin/bcftools/bcftools view -Oz -s ^sampleTTM,sampleTTF NC_plus_parent_genotypes_1-16-2019_all_raw.vcf.gz > Correct_NC_plus_parent_genotypes_1-16-2019_all_raw.vcf.gz &
+
+	/ohta/joanna.rifkin/bcftools/bcftools filter -Oz -e  "F_MISSING > 0.2" Correct_NC_plus_parent_genotypes_1-16-2019_all_raw.vcf.gz > Max0.2MissingNC_plus_parent_genotypes_1-16-2019.vcf.gz 2> BCFTools_filter_1-16-19.err &
+	
+	
+	 nohup /ohta/joanna.rifkin/bcftools/bcftools filter -Oz -i  "QUAL>20 |  FMT/GQ>20 & MAF[0]<0.05" Max0.2MissingNC_plus_parent_genotypes_1-16-2019.vcf.gz > AF_Filtered_GQ20_Max0.2MissingNC_plus_parent_genotypes_1-16-2019.vcf.gz 2> BCFTools_filter_1-16-19.err &
+
+	 
+ #1/17/2019
+ 
+ nohup vcftools --gzvcf Correct_TX_plus_parent_genotypes_1-15-2019_all_raw.vcf.gz --out GQ20Correct_TX_plus_parent_genotypes_1-17-2019_all_raw --minGQ 20 --recode --recode-INFO-all & #Set low-quality genotypes to missing
+
+ nohup /ohta/joanna.rifkin/bcftools/bcftools filter -Oz -i  "QUAL>20 & F_MISSING < 0.3 & MAF[0]>0.01" GQ20Correct_TX_plus_parent_genotypes_1-17-2019_all_raw.recode.vcf > Filtered_GQ20_Max0.3MissingTX_plus_parent_genotypes_1-17-2019.vcf.gz 2> BCFTools_filter_1-17-19.err &
+Filtered_GQ20_Max0.3MissingTX_plus_parent_genotypes_1-17-2019.vcf.gz
+    
+ nohup vcftools --gzvcf /ohta/joanna.rifkin/HiCSNPData/TranscriptomeCross/NC/Correct_NC_plus_parent_genotypes_1-16-2019_all_raw.vcf.gz --out /ohta/joanna.rifkin/HiCSNPData/TranscriptomeCross/NC/GQ20Correct_NC_plus_parent_genotypes_1-17-2019_all_raw --minGQ 20 --recode --recode-INFO-all & #Set low-quality genotypes to missing
+ 
+  nohup /ohta/joanna.rifkin/bcftools/bcftools filter -Oz -i  "QUAL>20 & F_MISSING < 0.3 & MAF[0]>0.01" /ohta/joanna.rifkin/HiCSNPData/TranscriptomeCross/NC/GQ20Correct_NC_plus_parent_genotypes_1-17-2019_all_raw.recode.vcf.gz > Filtered_GQ20_Max0.3MissingNC_plus_parent_genotypes_1-17-2019.vcf.gz 2> BCFTools_filter_1-17-19.err &
+
+  
+	
+ nohup /ohta/joanna.rifkin/bcftools/bcftools merge -Oz /ohta/joanna.rifkin/HiCSNPData/TranscriptomeCross/TX/TX_map_offspring_only.vcf.gz  /ohta/joanna.rifkin/HiCSNPData/TranscriptomeCross/ParentCalls.vcf.gz  |  /ohta/joanna.rifkin/bcftools/bcftools filter -e  "F_MISSING > 0.2" > TX_plus_parent_genotypes_1-15-2019.vcf.gz 2> BCFTools_merge_1-15-19.err &
+ nohup /ohta/joanna.rifkin/bcftools/bcftools view -Oz -s ^sampleScScP5f,sampleScScP1m TX_plus_parent_genotypes_1-15-2019.vcf.gz > Max0.2MissingTX_plus_parent_genotypes_1-15-2019.vcf.gz &
+ 
+GQ20Correct_TX_plus_parent_genotypes_1-17-2019_all_raw.recode.vcf
+
+ #1/23/2019
+ nohup vcftools --gzvcf Correct_TX_plus_parent_genotypes_1-15-2019_all_raw.vcf.gz --out GQ50Correct_TX_NoParent_No75No83_genotypes_1-17-2019_all_raw --minGQ 50 --remove-indv sampleTTM --remove-indv sampleTTF  --remove-indv sampleH9.TX75F --remove-indv  sampleH10.TX83M --recode --recode-INFO-all & #Set low-quality genotypes to missing
+
+ 
+ nohup /ohta/joanna.rifkin/bcftools/bcftools filter -Oz -i  "QUAL>50 & F_MISSING < 0.4 & MAF[0]>0.01" GQ50Correct_TX_NoParent_No75No83_genotypes_1-17-2019_all_raw.recode.vcf > Filtered_GQ50_Max0.4MissingTX_genotypes_2-12-2019.vcf.gz 2> BCFTools_filter_2-12-19.err &
+
+
+ nohup /ohta/joanna.rifkin/bcftools/bcftools filter -Oz -i  "QUAL>50 & F_MISSING < 0.1 & MAF[0]>0.1" GQ50Correct_TX_NoParent_No75No83_genotypes_1-17-2019_all_raw.recode.vcf > Filtered_GQ50_Max0.1Missing_MAF0.1_TX_genotypes_2-13-2019.vcf.gz 2> BCFTools_filter_2-13-19.err &
+
+  nohup /ohta/joanna.rifkin/bcftools/bcftools filter -Oz -i  'QUAL>50 & F_MISSING < 0.05 & MAF[0]>0.1 & MAF[0]<0.9 & TYPE="snp"' GQ50Correct_TX_NoParent_No75No83_genotypes_1-17-2019_all_raw.recode.vcf > Filtered_GQ50_Max0.05Missing_MAF0.1_0.9_TX_genotypes_2-13-2019.vcf.gz 2> BCFTools_filter_2-13-19_b.err &
+  
+  #4/9/2019
+
+ nohup vcftools --gzvcf Correct_NC_plus_parent_genotypes_1-16-2019_all_raw.vcf.gz --out GQ50Correct_NC_NoParent_No26No53No54_genotypes_1-17-2019_all_raw --minGQ 50 --remove-indv  sampleScScP1m    --remove-indv sampleScScP5f  --remove-indv sampleA4.NC26M --remove-indv sampleC7.NC53F --remove-indv sampleD7.NC54M --recode --recode-INFO-all & #Set low-quality genotypes to missing
+
+ nohup /ohta/joanna.rifkin/bcftools/bcftools filter -Oz -i  'QUAL>50 & F_MISSING < 0.05 & MAF[0]>0.1 & MAF[0]<0.9 & TYPE="snp"' GQ50Correct_NC_NoParent_No26No53No54_genotypes_1-17-2019_all_raw.recode.vcf > Filtered_GQ50_Max0.05Missing_MAF0.1_0.9_NC_genotypes_4-9-2019.vcf.gz 2> BCFTools_filter_4-9-19_b.err &

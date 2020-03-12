@@ -1,0 +1,18 @@
+#12-2-2019	
+	
+	vcftools --vcf myfile.vcf --out output_prefix --minGQ 15 --minDP 10 --recode --recode-INFO-all
+
+	vcftools --gzvcf raw_snps_w_depth_11-27-19.vcf.gz --out VCFToolsFelix_Pop_Filtered_GQ20_Q20_12-2-2019 --minGQ 20 --recode --recode-INFO-all & #Set low-quality genotypes to missing
+	 
+	 nohup /ohta/joanna.rifkin/bcftools/bcftools filter -Oz -i  "QUAL>20 & F_MISSING < 0.5 & MAF>0" VCFToolsFelix_Pop_Filtered_GQ20_Q20_12-2-2019.recode.vcf > Felix_Pop_Filtered_GQ20_Q20_Max0.5missing_noInvariantSites_12-2-2019.vcf.gz 2> BCFTools_filter_12-2-19.err &
+
+
+
+
+#1-17-2019	
+	
+	vcftools --vcf myfile.vcf --out output_prefix --minGQ 15 --minDP 10 --recode --recode-INFO-all
+
+	vcftools --gzvcf raw_snps_w_depth_11-16-18.vcf.gz --out VCFToolsFelix_Pop_Filtered_GQ20_Q20_1-17-2019 --minGQ 20 --recode --recode-INFO-all & #Set low-quality genotypes to missing
+	 
+	 nohup /ohta/joanna.rifkin/bcftools/bcftools filter -Oz -i  "QUAL>20 & F_MISSING < 0.5 & MAF>0" VCFToolsFelix_Pop_Filtered_GQ20_Q20_1-17-2019.recode.vcf > Felix_Pop_Filtered_GQ20_Q20_Max0.5missing_noInvariantSites_1-17-2019.vcf.gz 2> BCFTools_filter_1-17-19.err &
