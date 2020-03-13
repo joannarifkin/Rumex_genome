@@ -1,2 +1,0 @@
-# Sex_linkage
- 
