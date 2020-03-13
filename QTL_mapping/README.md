@@ -1,2 +1,0 @@
-# QTL_mapping
- 
