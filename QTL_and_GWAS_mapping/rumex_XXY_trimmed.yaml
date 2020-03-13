@@ -1,0 +1,33 @@
+crosstype: f2
+#geno: RumexGT.csv
+geno: ModifiedGenotypeFile_NC_summer.csv
+geno_transposed: true
+pheno: Sex_pheno_NC.csv
+#gmap: Post_chromonomer_final_edited_markers_positions_colocated_filled.csv
+#gmap: Final_edited_markers_positions_colocated_filled.csv
+gmap: Final_edited_mapped_and_colocated_markers_NC_NC_LGs.csv
+alleles:
+- "1"
+- "2"
+genotypes:
+  A: 1
+  H: 2
+  B: 3
+  #11: A
+  #12: H
+  #21: H
+  #22: B
+#sex:
+#  covar: sex
+#  f: female
+#  m: male
+#cross_info:
+#  covar: cross_direction
+#  (SxB)x(SxB): 0
+#  (BxS)x(BxS): 1
+#x_chr: X
+na.strings:
+- '-'
+- '--'
+- 'NA'
+#- '0'
