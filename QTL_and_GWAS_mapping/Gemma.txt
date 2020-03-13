@@ -1,0 +1,135 @@
+
+##GWAS
+cd /ohta/joanna.rifkin/Gemma
+
+#Plink only takes numeric chromosomes, so replace "L." with ""
+sed "s/^L.//g" /ohta/joanna.rifkin/HiCSNPData/Pop_RAD_seq/converted_raw_snps_w_depth_11-28-19.vcf  > /ohta/joanna.rifkin/HiCSNPData/Pop_RAD_seq/Plink_converted_raw_snps_w_depth_11-28-19.vcf
+
+vcftools --vcf /ohta/joanna.rifkin/HiCSNPData/Pop_RAD_seq/Plink_converted_raw_snps_w_depth_11-28-19.vcf --plink --remove-indels --max-missing 0.5 --min-meanDP 6 --minQ 10 --max-maf 0.95 --maf 0.05 --minGQ 20 --keep XYY.inds --out GBS_GWAS_XYY &
+/ohta/felix.beaudry/scripts/plink-1.07-x86_64/plink --file GBS_GWAS_XYY --make-bed --out GBS_GWAS_XYY_plink --noweb 
+##manual step of assigning phenotypes in .fam(?) file
+# Do this with sed ....
+cut -f 1-5 -d " " GBS_GWAS_XYY_plink.fam > tmp1
+cut -f 2 -d " " XYY_sexes.txt > tmp2
+paste -d, tmp1 tmp2 > tmp3
+paste -d " "  tmp1 tmp2 > tmp3
+mv tmp3 GBS_GWAS_XYY_plink.fam
+rm tmp*
+
+/ohta/haoran.xue/programs/gemma-0.98.1-linux-static -bfile GBS_GWAS_XYY_plink -lm 2 -o GBS_GWAS_XYY_plink_out
+
+
+
+
+
+##XY
+cd /ohta/joanna.rifkin/Gemma
+
+
+vcftools --vcf /ohta/joanna.rifkin/HiCSNPData/Pop_RAD_seq/Plink_converted_raw_snps_w_depth_11-28-19.vcf --plink --remove-indels --max-missing 0.5 --min-meanDP 6 --minQ 10 --max-maf 0.95 --maf 0.05 --minGQ 20 --keep XY.inds --out GBS_GWAS_XY &
+/ohta/felix.beaudry/scripts/plink-1.07-x86_64/plink --file GBS_GWAS_XY --make-bed --out GBS_GWAS_XY_plink --noweb 
+##manual step of assigning phenotypes in .fam(?) file
+# Do this with sed ....
+cut -f 1-5 -d " " GBS_GWAS_XY_plink.fam > tmp1
+cut -f 2 -d " " XY_sexes.txt > tmp2
+paste -d, tmp1 tmp2 > tmp3
+paste -d " "  tmp1 tmp2 > tmp3
+mv tmp3 GBS_GWAS_XY_plink.fam
+rm tmp*
+
+/ohta/haoran.xue/programs/gemma-0.98.1-linux-static -bfile GBS_GWAS_XY_plink -lm 2 -o GBS_GWAS_XY_plink_out
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+##GWAS
+vcftools --gzvcf pop.vcf.gz --plink --remove-indels --max-missing 0.5 --min-meanDP 6 --minQ 10 --max-maf 0.95 --maf 0.05 --minGQ 20 --keep XYY.inds --out GBS_GWAS_XYY
+/ohta/felix.beaudry/scripts/plink-1.07-x86_64/plink --file GBS_GWAS_XYY --make-bed --out GBS_GWAS_XYY_plink --noweb 
+##manual step of assigning phenotypes in .fam(?) file
+/ohta/haoran.xue/programs/gemma-0.98.1-linux-static -bfile GBS_GWAS_XYY_plink -lm 2 -o GBS_GWAS_XYY_plink_out
+
+
+
+    /ohta/joanna.rifkin/bcftools/bcftools annotate -c FORMAT/DP /ohta/joanna.rifkin/HiCSNPData/Pop_RAD_seq/raw_snps_w_depth_11-11-19.vcf.gz &
+	
+	
+	
+	 # Now before calling, stream the raw mpileup output through `bcftools annotate` to add the frequencies
+    bcftools mpileup [...] -Ou | bcftools annotate -a AFs.tab.gz -h AFs.hdr -c CHROM,POS,REF,ALT,REF_AN,REF_AC -Ou | bcftools call -mv -F REF_AN,REF_AC [...]
+
+-g, --gvcf INT 
+
+
+##GWAS
+#Replicating Felix's results
+vcftools --vcf /ohta/felix.beaudry/alignments/pseudoMol/star/pop/pop.vcf --plink --remove-indels --max-missing 0.5 --min-meanDP 6 --minQ 10 --max-maf 0.95 --maf 0.05 --minGQ 20 --keep /ohta/felix.beaudry/alignments/pseudoMol/star/pop/XYY.inds --out GBS_GWAS_XYY
+mv GBS_GWAS_XYY* FelixPopGBS_GWAS_XYY*
+/ohta/felix.beaudry/scripts/plink-1.07-x86_64/plink --file FelixPopGBS_GWAS_XYY --make-bed --out FelixPopGBS_GWAS_XYY_plink --noweb 
+##manual step of assigning phenotypes in .fam(?) file
+/ohta/haoran.xue/programs/gemma-0.98.1-linux-static -bfile FelixPopGBS_GWAS_XYY_plink -lm 2 -o FelixPopGBS_GWAS_XYY_plink_out
+
+
+
+##GWAS
+#Transcriptome data, my calls and conversion
+vcftools --vcf /ohta/joanna.rifkin/Chromonomer_analyses/Rumex/VCF_converter/ConvertedJosh_Felix_Pop_GQ20_Q20_Max0.5MissingTotal_noInvariant_1-17-2019.vcf --plink --remove-indels --max-missing 0.5 --minQ 10 --max-maf 0.95 --maf 0.05 --minGQ 40 --keep XYY_transcriptome_pop.inds --out JR_calls_GBS_GWAS_XYY
+/ohta/felix.beaudry/scripts/plink-1.07-x86_64/plink --file JR_calls_GBS_GWAS_XYY --make-bed --out JR_calls_GBS_GWAS_XYY_plink --noweb 
+##manual step of assigning phenotypes in .fam(?) file
+/ohta/haoran.xue/programs/gemma-0.98.1-linux-static -bfile JR_calls_GBS_GWAS_XYY_plink -lm 2 -o JR_calls_GBS_GWAS_XYY_plink_out
+
+
+
+
+
+/ohta/joanna.rifkin/Chromonomer_analyses/Rumex/VCF_converter/ConvertedJosh_Felix_Pop_GQ20_Q20_Max0.5MissingTotal_noInvariant_1-17-2019.vcf
+
+/ohta/felix.beaudry/alignments/pseudoMolv3long/star/leaf_pop.vcf.gz
+
+/ohta/felix.beaudry/alignments/pseudoMol/ngm/GBS/GBS.vcf.gz
+
+/ohta/felix.beaudry/alignments/pseudoMol/star/pop/pop_min25_DPavg10_GQavg10_AFMedium6-17.vcf.gz
+
+/ohta/felix.beaudry/alignments/pseudoMol/star/pop/pop.vcf
+
+/ohta/felix.beaudry/alignments/pseudoMol/star/pop/XYY.inds
+/ohta/felix.beaudry/alignments/pseudoMol/star/pop/XY.inds
+
+
+##GWAS
+vcftools --vcf /ohta/felix.beaudry/alignments/pseudoMol/star/pop/pop.vcf --plink --remove-indels --max-missing 0.5 --min-meanDP 6 --minQ 10 --max-maf 0.95 --maf 0.05 --minGQ 20 --keep /ohta/felix.beaudry/alignments/pseudoMol/star/pop/XYY.inds --out GBS_GWAS_XYY
+/ohta/felix.beaudry/scripts/plink-1.07-x86_64/plink --file GBS_GWAS_XYY --make-bed --out GBS_GWAS_XYY_plink --noweb 
+##manual step of assigning phenotypes in .fam(?) file
+/ohta/haoran.xue/programs/gemma-0.98.1-linux-static -bfile GBS_GWAS_XYY_plink -lm 2 -o GBS_GWAS_XYY_plink_out
+
+
+
+
+

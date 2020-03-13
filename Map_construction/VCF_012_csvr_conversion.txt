@@ -1,0 +1,25 @@
+#Convert to 012 format
+vcftools --gzvcf Josh_Felix_Pop_GQ20_Q20_Max0.5Missing_noInvariant_12-2-2019.vcf.gz --012  --out final012JoshPopFiltered_Q20_GQ20_All_NoInv
+
+		
+#Glue individual names back on
+#paste -d' ' file1 file2
+paste -d' ' final012JoshPopFiltered_Q20_GQ20_All_NoInv.012.indv final012JoshPopFiltered_Q20_GQ20_All_NoInv.012 > IndvAddedfinal012JoshPopFiltered_Q20_GQ20_All_NoInv.012
+
+#Transpose the file
+  awk '{for (i=1; i<=NF; i++) a[i,NR]=$i
+        max=(max<NF?NF:max)}
+        END {for (i=1; i<=max; i++)
+              {for (j=1; j<=NR; j++) 
+                  printf "%s%s", a[i,j], (j==NR?RS:FS)
+              }
+        }' IndvAddedfinal012JoshPopFiltered_Q20_GQ20_All_NoInv.012 > TPIndvAddedfinal012JoshPopFiltered_Q20_GQ20_All_NoInv.012
+
+		
+#Glue genotypes back on
+cp final012JoshPopFiltered_Q20_GQ20_All_NoInv.012.pos Spacefinal012JoshPopFiltered_Q20_GQ20_All_NoInv.012.pos
+sed -i '1s/^/CHROM POS\n , ,\n/' Spacefinal012JoshPopFiltered_Q20_GQ20_All_NoInv.012.pos
+#paste -d' ' file1 file2
+paste -d' ' Spacefinal012JoshPopFiltered_Q20_GQ20_All_NoInv.012.pos TPIndvAddedfinal012JoshPopFiltered_Q20_GQ20_All_NoInv.012 > Completefinal012JoshPopFiltered_Q20_GQ20_All_NoInv.012
+
+head -10000 Complete012JoshCrossFiltered_Q20_GQ20_All_NoInv.012 > subsetComplete012JoshCrossFiltered_Q20_GQ20_All_NoInv-DP10-Q20-AN64.012
