@@ -6,9 +6,6 @@ library(ASMap)
 library(qtl)
 library(dplyr)
 library(tidyr)
-#sample_data<-data(mapBCu, package="ASMap")
-#View(sample_data)
-#plot.missing(mapBCu)
 
 setwd("E:/Users/Joanna/Dropbox/Professional/University_of_Toronto/Genomics/HiCSNPs/TranscriptomeLinkageMap/ASMAP/NC_transcriptome/")
 setwd("D:/Dropbox/Dropbox/Professional/University_of_Toronto/Genomics/HiCSNPs/TranscriptomeLinkageMap/ASMAP/NC_transcriptome")
@@ -23,9 +20,6 @@ colnames(markers)<-"Genotype"
 head(markers)
 split_markers<-separate(markers, Genotype, c("ScnbKXS","Scaff", "HRSCAF", "HRSCAFnum","Pos"), remove=FALSE)
 head(split_markers)
-View(split_markers)
-
-
 
 biggest_hundred_scaffolds<-read.table("biggest_hundred_scaffolds.txt")
 head(biggest_hundred_scaffolds)
@@ -36,7 +30,7 @@ sum(as.numeric(intersection))
 
 
 split_markers$intersect<-(as.integer(split_markers$Scaff) %in% biggest_hundred_scaffolds$V1)
-split_markers$intersect[1]<-TRUE #Need to do this to keep vital spacer row
+split_markers$intersect[1]<-TRUE #Need to do this to keep vital spacer row for ASMAP format
 
 NCTfile<-left_join(NCTfile, split_markers, by="Genotype")
 colnames(NCTfile)
@@ -50,25 +44,13 @@ colnames(NCTfile)<-c("Genotype","","sampleA10.NC75M","sampleA11.NC85F","sampleA1
 head(NCTfile)
 ncol(NCTfile)
 NCTfile[1,2]<-""
-#positions<-read.table("CopyTX_GQ50_0.05_correct_ind_only.012.pos")
-#head(positions)
-#length(unique(positions$V1))
-#subset(positions,(duplicated(positions$V1)==T))
-
-#newcol<-c(rep("",2),rep(1, (dim(NCTfile)[1]-2)))
-#NCTfileMod<-cbind(NCTfile[,1],
-#                  newcol, 
-#                  NCTfile[,2:(dim(NCTfile)[2])])
-#head(NCTfileMod)
-#View(NCTfileMod)
-write.csv(NCTfile, "ModifiedGenotypeFile.csvr", row.names = F)
+write.csv(NCTfile, "ModifiedGenotypeFile.csvr", row.names = F) #CSVR file for input into ASMAP
 #warnings()
 #dim(NCTfile)[1]
 rm(NCTfile)
 rm(markers)
 rm(split_markers)
 ########### inspect and filter raw data ##### ---------
-#RumexNCTmap <- read.cross("csvr", ".", "PosIndvAddedCopyTX_GQ50_0.05_correct_ind_only.csvr", crosstype = "f2",genotypes=c("A","H","B"), F.gen = 2)
 RumexNCTmap <- read.cross("csvr", ".", "ModifiedGenotypeFile.csvr", crosstype = "f2",genotypes=c("A","H","B"), F.gen = 2)
 plotMissing(RumexNCTmap) #A couple of individuals with high missing data, most not too bad
 ?read.cross
@@ -81,8 +63,6 @@ plotMissing(RumexNCTmap1) #A couple of individuals with high missing data, most 
 sg <- statGen(RumexNCTmap, bychr = FALSE, stat.type = "miss")
 hist(sg$miss)
 RumexNCTmap1 <- subset(RumexNCTmap, ind = sg$miss < 5000)
-?statGen
-?mstmap.cross
 #Check for clones
 gc <- genClones(RumexNCTmap1, tol = 0.95)
 gc$cgd
@@ -111,21 +91,16 @@ heatMap(RumexNCTmap4)
 nmar(RumexNCTmap4)
 chrlen(RumexNCTmap4)
 length(chrlen(RumexNCTmap4) )
-#interesting, we get all the 
-
-#heatMap(RumexNCTmap4, lmax = 70)
-#Clearly switched alleles in play
-#checkAlleles(RumexNCTmap4)
 
 save.image()
-#Fix switched alleles --------------------
+#Fix switched alleles - some alleles switched because parental genotypes not known therefore data not phased
 #The easiest way to do this is to export the map, import it again as an F2 map, run checkalleles and switch alleles, and then put it back into ASMAP
-#Use Kate's loop to switch the alleles in all the linkage groups in sequence
+#Use loop to switch the alleles in all the linkage groups in sequence
 
 rm(RumexNCTmap);rm(RumexNCTmap1);rm(RumexNCTmap2);rm(RumexNCTmap3)
 
 write.cross(RumexNCTmap4, "csvr", "test")
-i #GLORIOUS WORKING LOOP
+#Loop to switch alleles
 for (i in seq(2, 60, by = 1)){
   print(c("i = ", i))
   print(length(nmar(RumexNCTmap4)))
@@ -152,15 +127,11 @@ for (i in seq(2, 60, by = 1)){
     print("written")
   }
 }
-#Run loop twice, and manually switch any LG that has the same number of markers as another
+#Run loop three times, and manually switch any LG that has the same number of markers as another
 save.image()
 load.image()
-#Loop has been run 3x, seems to have stabilized so the rest will probably clear up once i remove distorted markerss
-View(num_markers)
 nmar(RumexNCTmap4)
 heatMap(RumexNCmap4)
-heatMap(RumexNCTmap4, chr=c("L.9", "L.35"))
-
 plotMap(RumexNCTmap4)
 
 
@@ -183,7 +154,7 @@ write.csv(RumexNCTmap5$seg.distortion$table, "distorted_markers_biggest_100.csv"
 
 RumexNCTmap5 <- mstmap(RumexNCTmap5, id="NA.", bychr=FALSE, dist.fun="kosambi", trace=TRUE, p.value=1e-5)
 heatMap(RumexNCTmap5)
-#Clearly L10 still needs to be switched
+#Clearly one LG still needs to be switched
 write.cross(RumexNCTmap5, "csvr", "test")
 RumexNCTmap5 <- read.cross("csvr", ".", "test.csv", crosstype = "f2",genotypes=c("AA","AB","BB"), F.gen = 2)
 RumexNCTmap5 <- switchAlleles(RumexNCTmap5, markernames(RumexNCTmap5, chr=(paste("L.",10, sep=""))))
@@ -206,7 +177,7 @@ pg <- profileGen(RumexNCTmap5, bychr = FALSE, stat.type = c("xo", "dxo",
 pg$xo.lambda
 pgframe<-as.data.frame(pg$xo.lambda)
 subset(pgframe, pg$xo.lambda==T)
-RumexNCTmap6 <- subsetCross(RumexNCTmap5, ind = !pg$xo.lambda)
+RumexNCTmap6 <- subsetCross(RumexNCTmap5, ind = !pg$xo.lambda) #Remove individuals with high double crossovers
 RumexNCTmap6 <- mstmap(RumexNCTmap6, bychr = TRUE, dist.fun = "kosambi", trace = TRUE,
                        p.value = 1e-4)
 nmar(RumexNCTmap6)
