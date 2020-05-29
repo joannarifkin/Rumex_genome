@@ -1,2 +1,3 @@
 # Windowed_analyses
-Windowed_analysis_no_conversion_ohta_version.R #Script to assign sex-linked status to SNPs from different datasets and join them together into a single SNP file; that SNP file is then converted to LG positions using the python script SNP_list_Interactive_Chromonomer_LG_position_switcher.py. The resulting file can be windowed at different window sizes using this R script
+Windowed_analysis_no_conversion_ohta_version.R #Script to assign sex-linkage status to SNPs from different datasets and join them together into a single SNP file; that SNP file is then converted to LG positions using the python script SNP_list_Interactive_Chromonomer_LG_position_switcher.py. The converted file The resulting file can be windowed at different window sizes using this R script
+bedtools_snp_counts_GBS_data.txt #Script to collect SNP counts in windows from population GBS data using bedtools

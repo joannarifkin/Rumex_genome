@@ -1,0 +1,14 @@
+bedtools makewindows -g Rumex_TX_chromonomer_chromosome_5-20-2020.sizes -w 10000 > 10000windows.bed
+bedtools coverage -a 10000windows.bed -b Plink_converted_raw_snps_w_depth_11-28-19.vcf -counts > raw_pop_GBS_10000coverage.txt
+
+bedtools makewindows -g Rumex_TX_chromonomer_chromosome_5-20-2020.sizes -w 50000 > 50000windows.bed
+bedtools coverage -a 50000windows.bed -b Plink_converted_raw_snps_w_depth_11-28-19.vcf -counts > raw_pop_GBS_50000coverage.txt
+
+bedtools makewindows -g Rumex_TX_chromonomer_chromosome_5-20-2020.sizes -w 100000 > 100000windows.bed
+bedtools coverage -a 100000windows.bed -b Plink_converted_raw_snps_w_depth_11-28-19.vcf -counts > raw_pop_GBS_100000coverage.txt
+
+bedtools makewindows -g Rumex_TX_chromonomer_chromosome_5-20-2020.sizes -w 500000 > 500000windows.bed
+bedtools coverage -a 500000windows.bed -b Plink_converted_raw_snps_w_depth_11-28-19.vcf -counts > raw_pop_GBS_500000coverage.txt
+
+bedtools makewindows -g Rumex_TX_chromonomer_chromosome_5-20-2020.sizes -w 1000000 > 1000000windows.bed
+bedtools coverage -a 1000000windows.bed -b Plink_converted_raw_snps_w_depth_11-28-19.vcf -counts > raw_pop_GBS_1000000coverage.txt

@@ -1,4 +1,4 @@
-#Convert to 012 format
+#Convert to 012 format using vcftools
 vcftools --gzvcf Josh_Felix_Pop_GQ20_Q20_Max0.5Missing_noInvariant_12-2-2019.vcf.gz --012  --out final012JoshPopFiltered_Q20_GQ20_All_NoInv
 
 		
