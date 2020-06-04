@@ -6,3 +6,6 @@ biggest_hundred_scaffolds.txt #List of scaffolds for filtering markers - largest
 F2Asmap_construct_map_NC_transcriptome_biggest_hundred_scaffolds_switch_alleles_first_plus_Kate_code_local.R #Interactive script for constructing the NC genetic map
 # NC/TX construction files folders
 Input and output files from map construction
+# Map edits
+Format_map_and_markers_final.R # scripts to 1) reincorporate colocated markers into the map and 2) fuse split linkage groups to maximize number of included scaffolds.
+Supplemental_methods_map_construction_final.docx # description of reformatting of map to combine collinear LGs and maximize number of scaffolds included
