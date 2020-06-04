@@ -1,4 +1,4 @@
-for i in "ALBRE11" "ALBRU8" "FLJAS13" "GABEL9" "GAGLA21" "GASTA3" "LABEN5" "NCBAT4" "NCKIN2" "NCROS7" "OKBAC15" "OKRAT17" "SCBRA4" "SCMAR24" "SCPRO27" "TXATH5" "TXLIV14" "TXMTP16" "TXOAK6" "TXROS24"
+for i in "ALBRE11" "ALBRU8" "FLJAS13" "GABEL9" "GAGLA21" "GASTA3" "LABEN5" "NCBAT4" "NCKIN2" "NCROS7" "OKBAC15" "OKRAT17" "SCBRA4" "SCMAR24" "SCPRO27" "TXATH5" "TXLIV14" "TXMTP16" "TXOAK6" "TXROS24" "FLHAM4" "NCELI16" "NCHIC16"
 do
 
 STAR --genomeDir /ohta/joanna.rifkin/Genomes/Hi-C \
@@ -25,6 +25,9 @@ STAR --genomeDir /ohta/joanna.rifkin/Genomes/Hi-C \
 /ohta/joanna.rifkin/Alignments/STAR/FelixHastatulusPop/AlignedtoHiC/Pass1/11-2_Pass1_FLJAS13SJ.out.tab \
 /ohta/joanna.rifkin/Alignments/STAR/FelixHastatulusPop/AlignedtoHiC/Pass1/11-2_Pass1_ALBRU8SJ.out.tab \
 /ohta/joanna.rifkin/Alignments/STAR/FelixHastatulusPop/AlignedtoHiC/Pass1/11-2_Pass1_ALBRE11SJ.out.tab \
+/ohta/joanna.rifkin/Alignments/STAR/FelixHastatulusPop/AlignedtoHiC/Pass1/11-2_Pass1_FLHAM4SJ.out.tab \
+/ohta/joanna.rifkin/Alignments/STAR/FelixHastatulusPop/AlignedtoHiC/Pass1/11-2_Pass1_NCELI16SJ.out.tab \
+/ohta/joanna.rifkin/Alignments/STAR/FelixHastatulusPop/AlignedtoHiC/Pass1/11-2_Pass1_NCHIC16SJ.out.tab \
 --outFileNamePrefix /ohta/joanna.rifkin/Alignments/STAR/FelixHastatulusPop/AlignedtoHiC/Pass2/11-5_Pass2_$i \
 --runThreadN 16
 
