@@ -1,8 +1,8 @@
 #### Variant_calling
  
-Index_genome.txt #Script to index our draft genome assembly for use with STAR
+Index_genome.txt #Script to index our draft genome assembly for use with STAR (ngm doesn't require a separate indexing step)
 
-Align*Pass* #Scripts to align RNAseq reads to genome using STAR in 2-pass mode
+Align*Pass* #Scripts to align RNAseq reads to genome using STAR in 2-pass mode. Pass 1 - align. Pass 2 - align with splice junction databases.
 
 NGMLoopFelixPopHiC11-1-18 #Script to align DNAseq reads to genome using NextGenMapping
 
