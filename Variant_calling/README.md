@@ -1,16 +1,24 @@
 #### Variant_calling
- 
-Index_genome.txt #Script to index our draft genome assembly for use with STAR
 
-Align*Pass* #Scripts to align RNAseq reads to genome using STAR in 2-pass mode
+	#### Align
+		Index_genome.txt #Script to index our draft genome assembly for use with STAR
 
-NGMLoopFelixPopHiC11-1-18 #Script to align DNAseq reads to genome using NextGenMapping
+		Align*Pass* #Scripts to align RNAseq reads to genome using STAR in 2-pass mode
 
-Readgroups_duplicates_sort_\* #PicardTools scripts to post-process alignments
+		NGMLoopFelixPopHiC11-1-18 #Script to align DNAseq reads to genome using NextGenMapping
 
-MPileup\* and Call\* #Scripts to generate genotype calls from alignments using bcftools 1.9-67-g626e46b
 
-Filter\* #Scripts to filter genotype calls by quality and depth
+	#### Picard_process_alignments
+
+		Readgroups_duplicates_sort_\* #PicardTools scripts to post-process alignments
+
+	#### SNP_calls
+		
+		MPileup\* and Call\* #Scripts to generate genotype calls from alignments using bcftools 1.9-67-g626e46b
+
+	#### Filter\
+	
+		Filter\* #Scripts to filter genotype calls by quality and depth
 
 #### Datasets 
 
