@@ -19,6 +19,10 @@
 	#### Filter\
 	
 		Filter\* #Scripts to filter genotype calls by quality and depth
+		
+	#### Convert to 012
+		
+		Sample scripts to convert data to 012 format using VCFtools
 
 #### Datasets 
 
