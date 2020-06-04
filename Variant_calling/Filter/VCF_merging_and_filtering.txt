@@ -1,21 +1,4 @@
-vcf-merge A.vcf.gz B.vcf.gz C.vcf.gz | bgzip -c > out.vcf.gz
 
-   -d, --remove-duplicates                         If there should be two consecutive rows with the same chr:pos, print only the first one.
-
-   
- vcf-isec -o A.vcf.gz B.vcf.gz C.vcf.gz | bgzip -c > out.vcf.gz 
- 
- 
- /ohta/joanna.rifkin/HiCSNPData/TranscriptomeCross/ParentCalls.vcf.gz
- 
- 
-  nohup vcf-isec -o /ohta/joanna.rifkin/HiCSNPData/TranscriptomeCross/TX/TX_map_offspring_only.vcf.gz  /ohta/joanna.rifkin/HiCSNPData/TranscriptomeCross/ParentCalls.vcf.gz | bgzip -c > TX_plus_parent_genotypes_1-15-2019.vcf.gz 2> VCFIsec_1-15-19.err &
- 
- 
- 
- nohup /ohta/joanna.rifkin/bcftools/bcftools merge -Oz /ohta/joanna.rifkin/HiCSNPData/TranscriptomeCross/TX/TX_map_offspring_only.vcf.gz  /ohta/joanna.rifkin/HiCSNPData/TranscriptomeCross/ParentCalls.vcf.gz  > TX_plus_parent_genotypes_raw_1-15-2019.vcf.gz 2> BCFTools_merge_1-15-19.err &
- 
- 
   
  
  #1-15-2019
