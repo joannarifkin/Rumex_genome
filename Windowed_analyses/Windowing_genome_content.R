@@ -106,21 +106,6 @@ All_genes_windowed_1000K<-All_genes_windowed_1000K %>% mutate(proportion_of_wind
 #plot(All_genes_windowed_1000K$window_start, All_genes_windowed_1000K$LG_start_mean)
 write.csv(All_genes_windowed_1000K, "6_2_All_genes_windowed_1000K_with_feature_size.csv", row.names=F, quote=F)
 
-#View(All_genes_windowed_500K)
-
-getwd()
-
-#write.csv(All_genes_windowed_500K, "All_genes_windowed_500K.csv")
-
-
-BUSCO_genes_windowed_500K <- All_genes_BUSCO %>% group_by(LG)  %>% mutate(position_window=LG_lower_start%/%500000) %>% group_by(LG,position_window) %>% tally() 
-
-BUSCO_genes_windowed_500K <- All_genes_BUSCO %>% group_by(LG)  %>% mutate(position_window=LG_lower_start%/%500000) %>% group_by(LG,position_window) %>% add_tally() %>% select_if(., is.numeric) %>% summarize_all(funs(sum(., na.rm = T), mean(., na.rm = T))) 
-colnames(BUSCO_genes_windowed_500K)
-BUSCO_genes_windowed_500K<-BUSCO_genes_windowed_500K[,c(1:2,10,20)]
-BUSCO_genes_windowed_500K<-BUSCO_genes_windowed_500K %>% mutate(proportion_of_window=featuresize_sum/500000)
-
-
 #write.csv(BUSCO_genes_windowed_500K, "BUSCO_genes_windowed_500K_with_proportion_including_repeat_overlap.csv")
 #write.csv(BUSCO_genes_windowed_500K, "BUSCO_genes_windowed_500K.csv")
 
@@ -200,82 +185,3 @@ write.csv(current_repeats, paste("Simple_repeats_windowed_",as.character(window_
 
 
 ##################################
-
-MULE_windowed_500K <- All_repeats %>% filter(., transcript_status=="DNA/MuLE-MuDR") %>% group_by(LG)  %>% mutate(position_window=LG_lower_start%/%500000) %>% group_by(LG,position_window) %>% tally() 
-write.csv(MULE_windowed_500K, "MULE_windowed_500K.csv")
-
-
-
-
-
-LINE_windowed_500K <- All_repeats %>% filter(., transcript_status=="LINE/L1") %>% group_by(LG)  %>% mutate(position_window=LG_lower_start%/%500000) %>% group_by(LG,position_window) %>% tally() 
-write.csv(LINE_windowed_500K, "LINE_windowed_500K.csv")
-
-LINE_windowed_500K <- All_repeats  %>% filter(., transcript_status=="LINE/L1") %>% group_by(LG)  %>% mutate(position_window=LG_lower_start%/%500000) %>% group_by(LG,position_window) %>% add_tally() %>% select_if(., is.numeric) %>% summarize_all(funs(sum(., na.rm = T), mean(., na.rm = T))) 
-colnames(LINE_windowed_500K)
-LINE_windowed_500K<-LINE_windowed_500K[,c(1:2,10,20)]
-LINE_windowed_500K<-LINE_windowed_500K %>% mutate(proportion_of_window=featuresize_sum/500000)
-write.csv(LINE_windowed_500K, "LINE_windowed_500K_with_feature_size.csv")
-
-
-
-
-Copia_windowed_500K <- All_repeats %>% filter(., transcript_status=="LTR/Copia") %>% group_by(LG)  %>% mutate(position_window=LG_lower_start%/%500000) %>% group_by(LG,position_window) %>% tally() 
-write.csv(Copia_windowed_500K, "Copia_windowed_500K.csv")
-
-
-Copia_windowed_500K <- All_repeats  %>% filter(., transcript_status=="LTR/Copia") %>% group_by(LG)  %>% mutate(position_window=LG_lower_start%/%500000) %>% group_by(LG,position_window) %>% add_tally() %>% select_if(., is.numeric) %>% summarize_all(funs(sum(., na.rm = T), mean(., na.rm = T))) 
-colnames(Copia_windowed_500K)
-Copia_windowed_500K<-Copia_windowed_500K[,c(1:2,10,20)]
-Copia_windowed_500K<-Copia_windowed_500K %>% mutate(proportion_of_window=featuresize_sum/500000)
-write.csv(Copia_windowed_500K, "Copia_windowed_500K_with_feature_size.csv")
-
-
-
-
-Gypsy_windowed_500K <- All_repeats %>% filter(., transcript_status=="LTR/Gypsy") %>% group_by(LG)  %>% mutate(position_window=LG_lower_start%/%500000) %>% group_by(LG,position_window) %>% tally() 
-write.csv(Gypsy_windowed_500K, "Gypsy_windowed_500K.csv")
-
-Gypsy_windowed_500K <- All_repeats  %>% filter(., transcript_status=="LTR/Gypsy") %>% group_by(LG)  %>% mutate(position_window=LG_lower_start%/%500000) %>% group_by(LG,position_window) %>% add_tally() %>% select_if(., is.numeric) %>% summarize_all(funs(sum(., na.rm = T), mean(., na.rm = T))) 
-colnames(Gypsy_windowed_500K)
-Gypsy_windowed_500K<-Gypsy_windowed_500K[,c(1:2,10,20)]
-Gypsy_windowed_500K<-Gypsy_windowed_500K %>% mutate(proportion_of_window=featuresize_sum/500000)
-write.csv(Gypsy_windowed_500K, "Gypsy_windowed_500K_with_feature_size.csv")
-
-
-
-Simple_repeat_windowed_500K <- All_repeats %>% filter(., transcript_status=="Simple_repeat") %>% group_by(LG)  %>% mutate(position_window=LG_lower_start%/%500000) %>% group_by(LG,position_window) %>% tally() 
-write.csv(Simple_repeat_windowed_500K, "Simple_repeat_windowed_500K.csv")
-
-
-Simple_repeat_windowed_500K <- All_repeats  %>% filter(., transcript_status=="Simple_repeat") %>% group_by(LG)  %>% mutate(position_window=LG_lower_start%/%500000) %>% group_by(LG,position_window) %>% add_tally() %>% select_if(., is.numeric) %>% summarize_all(funs(sum(., na.rm = T), mean(., na.rm = T))) 
-colnames(Simple_repeat_windowed_500K)
-Simple_repeat_windowed_500K<-Simple_repeat_windowed_500K[,c(1:2,10,20)]
-Simple_repeat_windowed_500K<-Simple_repeat_windowed_500K %>% mutate(proportion_of_window=featuresize_sum/500000)
-write.csv(Simple_repeat_windowed_500K, "Simple_repeat_windowed_500K_with_feature_size.csv")
-
-
-
-
-plot(All_genes_windowed_100K$position_window,All_genes_windowed_100K$n, ylim=c(0,100))
-plot(L.10$position_window,L.10$n, ylim=c(0,150))
-
-plot(L.3$position_window,L.3$n, ylim=c(0,800))
-
-L.10<-subset(All_genes_windowed_100K, All_genes_windowed_100K$LG=="L.10")
-L.10<-subset(All_genes_windowed_500K, All_genes_windowed_500K$LG=="L.10")
-L.10<-subset(BUSCO_genes_windowed_500K, BUSCO_genes_windowed_500K$LG=="L.10")
-L.10<-subset(MULE_windowed_500K, MULE_windowed_500K$LG=="L.10")
-L.10<-subset(LINE_windowed_500K, LINE_windowed_500K$LG=="L.10")
-L.10<-subset(Copia_windowed_500K, Copia_windowed_500K$LG=="L.10")
-L.10<-subset(Gypsy_windowed_500K, Gypsy_windowed_500K$LG=="L.10")
-L.10<-subset(Simple_repeat_windowed_500K, Simple_repeat_windowed_500K$LG=="L.10")
-L.3<-subset(Repeats_windowed_500K, Repeats_windowed_500K$LG=="L.3")
-
-View(All_genes_windowed_100K)
-
-unique(All_genes_windowed_10K$position_window)
-View(All_genes_windowed_10K)
-
-%>% select_if(., is.numeric) %>% summarize_all(funs(sum(., na.rm = T))) 
-write.csv(Windowed_summary_lengths10K, "10KWindows.csv")
