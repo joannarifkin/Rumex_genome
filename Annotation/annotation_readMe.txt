@@ -7,4 +7,4 @@ Steps
 4. BRAKER output had a very high count of predicted genes, likely due to high TE density. We therefore filter (with R script) the predicted genes by:
 	4a. we mapped the RNAseq data back to the predicted transcriptome to only include genes that are expressed. 
 	4b. we mapped whole genome sequences back to the predicted transcriptome to exclude genes with more coverage than would be predicted for single copy genes.
-5. The .gff was than filetered for genes that passed the above (4) thereshold
+5. The .gff was than filetered for genes that passed the above (4) threshold
