@@ -6,3 +6,4 @@ Final_edited_mapped_and_colocated_markers_NC_TX_LGs.csv and Final_edited_markers
 Sex_pheno\*.csv #Phenotype files with sex as a binary phenotype
 rumex_\*trimmed.yaml #Control files for R/QTL2 mapping
 RumexGT.csv and ModifiedGenotypeFile_NC_summer.csv #genotype files for XY and XYY cytotypes
+converted_raw_snps_w_depth_11-28-19.vcf #population GBS data for Gemma
