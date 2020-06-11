@@ -30,7 +30,7 @@ apr <- genoprob_to_alleleprob(pr)
 
 ### TX scan for QTL ###### 
 out_binary <- scan1(pr, rumexTXF2$pheno[,1], model="binary", maxit=100000)
-out_binary <- scan1(pr, rumexTXF2$pheno[,1], model="binary", maxit=1000, bintol = 1e-6, eta_max=19) #Adjusted bintol and etamax to get model to converge (https://groups.google.com/forum/#!searchin/rqtl2-disc/joanna%7Csort:date/rqtl2-disc/X9kIdqpAJxg/cL28KphKCAAJ). Converges up to eta_max = 19. 
+out_binary <- scan1(pr, rumexTXF2$pheno[,1], model="binary", maxit=1000, bintol = 1e-6, eta_max=19) #No idea if these are sensible values for bintol and eta_max - eta_max seems to have more of an influence. Converges up to eta_max = 19. 
 
 #out <- scan1(pr, rumexTXF2$pheno[,1])
 
