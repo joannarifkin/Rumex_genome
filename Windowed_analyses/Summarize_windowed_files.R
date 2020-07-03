@@ -51,7 +51,7 @@ All_windowed_tables<-rbind(All_windowed_tables, Windowed_tables) #Use this for s
 
 #End of block to repeat for all five NC or TX files
 
-All_windowed_tables<-All_windowed_tables%>%mutate(coefficient_MB=coefficient*1000000)
+All_windowed_tables<-All_windowed_tables%>%mutate(coefficient_MB=coefficient/1000000)
 All_windowed_tables<-All_windowed_tables%>%mutate(LG_final=str_replace_all(LG, c("L.10"="Sex",
 "L.7"="A1","L.8"="A2","L.3"="A4","L.5"="A3")))
   
