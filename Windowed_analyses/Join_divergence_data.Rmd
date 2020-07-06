@@ -1,0 +1,89 @@
+---
+title: "Divergence_data"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+
+This script joins the windowing SNP data to the KS values from Josh's data. 
+
+```{r}
+library(dplyr)
+library(tidyr)
+Alignment<-read.table("E:/Users/Joanna/Dropbox/Professional/University_of_Toronto/Genomics/Rumex_genome_paper/Finalized_analyses/Windowed_analyses/Divergence_data/HastTranscriptomeAssemblyToHiCBLAST_Unique_max_target_seqs_5_27_2019", header=F)
+
+head(Alignment)
+colnames(Alignment)<-c("locus", "scaffold", "pct_identical", "length","n_mismatch","n_gaps", "q_start","q_end","ref_start","ref_end", "evalue","bitscore")
+Ka_Ks<-read.table("E:/Users/Joanna/Dropbox/Professional/University_of_Toronto/Genomics/Rumex_genome_paper/Finalized_analyses/Windowed_analyses/Divergence_data/Ks_values_from_Hough_2014.txt", header = T)
+
+head(Ka_Ks)
+
+getwd()
+#Strip divergence and BLAST data down to locus numbers
+Ka_Ks<-Ka_Ks%>% separate(locus, into=c(NA, "locus",NA), sep="\\_")
+Ka_Ks$locus<-as.numeric(Ka_Ks$locus)
+Alignment<-Alignment%>% separate(locus, into=c(NA, "locus",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA), sep="\\_")
+Alignment$locus<-as.numeric(Alignment$locus)
+
+head(Alignment)
+View(Ka_Ks)
+
+#rm(Alignment)
+#Alignment_KaKs<-filter(Alignment, locus %in% Ka_Ks$locus)
+View(Alignment_KaKs)
+
+#Ka_Ks_and_BLAST<-left_join(Ka_Ks,Alignment_KaKs, by="locus")
+#View(Ka_Ks_and_BLAST)
+
+#write.csv(Ka_Ks_and_BLAST, "Ka_Ks_and_BLAST_5-29-2020.csv")
+
+
+#SNPData<-read.csv("E:/Users/Joanna/Dropbox/Professional/University_of_Toronto/Genomics/Rumex_genome_paper/Finalized_analyses/Windowed_analyses/12-17-19-All_SNPs_joined.csv")
+
+head(SNPData)
+
+
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+
+divergence_data_converted<-read.csv("E:/Users/Joanna/Dropbox/Professional/University_of_Toronto/Genomics/Rumex_genome_paper/Finalized_analyses/Windowed_analyses/Divergence_data/Ka_Ks_joined_converted.csv")
+
+divergence_data_converted<-subset(divergence_data_converted, divergence_data_converted$pct_identical>99)
+
+colnames(divergence_data_converted)
+
+
+unique(divergence_data_converted$LG)
+
+write.csv(divergence_data_converted, "Ka_Ks_joined_converted_99pct.csv")
+
+L.10<-subset(divergence_data_converted, divergence_data_converted$LG=="L.10")
+plot(L.10$LG_position_start, L.10$Dxy_Ks_NMX, main = "Ks values along the sex chromosome", ylab = "KS from Josh's data", xlab = "Position on chromosome", ylim=c(0,.1))
+
+
+L.7<-subset(divergence_data_converted, divergence_data_converted$LG=="L.7")
+plot(L.7$LG_position_start, L.7$Dxy_Ks_NMX, main = "Ks values along A1", ylab = "KS from Josh's data", xlab = "Position on chromosome", ylim=c(0,.1))
+
+
+L.8<-subset(divergence_data_converted, divergence_data_converted$LG=="L.8")
+plot(L.8$LG_position_start, L.8$Dxy_Ks_NMX, main = "Ks values along A2", ylab = "KS from Josh's data", xlab = "Position on chromosome", ylim=c(0,.1))
+
+
+L.5<-subset(divergence_data_converted, divergence_data_converted$LG=="L.5")
+plot(L.5$LG_position_start, L.5$Dxy_Ks_NMX, main = "Ks values along the neo", ylab = "KS from Josh's data", xlab = "Position on chromosome", ylim=c(0,.1))
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

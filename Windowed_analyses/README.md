@@ -6,3 +6,7 @@ Windowing_genome_content.R #Script for windowed analyses of gene and repeat cont
 bedtools_snp_counts_GBS_data.txt #Script to collect SNP counts in windows from population GBS dataset using bedtools
 
 6_2_12-17-19-All_SNPs_joined_converted.csv.gz #Full dataset of joined, converted population and cross SNPs
+
+Join_divergence_data.Rmd #Script to join KaKs values to position data from BLAST hits
+
+Ka_Ks_joined_converted_99pct.csv #KaKs values positioned along the genome 
